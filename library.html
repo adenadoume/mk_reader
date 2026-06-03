@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library — MD Reader</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090B;--panel:#111827;--panel-alt:#18181B;--elevated:#1f2937;
+  --border:rgba(255,255,255,0.05);--border-mid:#374151;
+  --text:#FAFAFA;--text-2:#9ca3af;--text-3:#7FA8C9;
+  --blue:#3b82f6;--blue-light:#60a5fa;
+  --ocean-bg:#1B2A3B;--ocean-border:#2A5C8A;--ocean-text:#A8C8E8;--ocean-strong:#5B9BD5;
+}
+html{font-size:16px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+header{background:linear-gradient(135deg,#09090B 0%,#111115 100%);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:54px;position:sticky;top:0;z-index:100}
+.logo{font-size:16px;font-weight:700;color:var(--blue-light);letter-spacing:.5px;display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo svg{width:20px;height:20px}
+.back-btn{font-size:12px;font-weight:600;color:var(--text-3);text-decoration:none;padding:5px 12px;border:1px solid var(--ocean-border);border-radius:6px;background:var(--ocean-bg);transition:background .15s,color .15s}
+.back-btn:hover{background:var(--ocean-border);color:#fff}
+main{max-width:720px;margin:0 auto;padding:2.5rem 2rem}
+h1{font-size:20px;font-weight:700;color:var(--text);margin-bottom:6px}
+.subtitle{font-size:13px;color:var(--text-2);margin-bottom:2rem;font-family:'JetBrains Mono',monospace}
+#list{display:flex;flex-direction:column;gap:10px}
+.doc-row{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--panel);border:1px solid var(--border-mid);border-radius:8px;
+  padding:12px 16px;transition:border-color .15s,background .15s;
+}
+.doc-row:hover{border-color:var(--ocean-border);background:var(--ocean-bg)}
+.doc-name{font-size:14px;font-weight:500;color:var(--text);text-transform:capitalize}
+.doc-url{font-size:12px;color:var(--text-3);font-family:'JetBrains Mono',monospace;margin-top:2px}
+.doc-open{font-size:12px;font-weight:600;color:var(--blue-light);text-decoration:none;padding:5px 12px;border:1px solid var(--ocean-border);border-radius:5px;white-space:nowrap;transition:background .15s}
+.doc-open:hover{background:var(--ocean-border);color:#fff}
+#status{font-size:13px;color:var(--text-2);padding:2rem 0;text-align:center;font-family:'JetBrains Mono',monospace}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0D1B2A}::-webkit-scrollbar-thumb{background:var(--ocean-border);border-radius:3px}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="/">
+    <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M6 8h10M6 11h7M6 14h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    MD Reader
+  </a>
+  <a href="/" class="back-btn">← Reader</a>
+</header>
+<main>
+  <h1>Library</h1>
+  <div class="subtitle" id="count">Loading…</div>
+  <div id="list"></div>
+  <div id="status"></div>
+</main>
+<script>
+async function load(){
+  const status=document.getElementById('status');
+  const list=document.getElementById('list');
+  const count=document.getElementById('count');
+  try{
+    const res=await fetch('/api/list');
+    const data=await res.json();
+    if(!res.ok||data.error){status.textContent='Error: '+(data.error||'failed to load');return;}
+    if(!data.files||data.files.length===0){count.textContent='0 documents';status.textContent='No saved documents yet.';return;}
+    count.textContent=data.files.length+' document'+(data.files.length===1?'':'s');
+    list.innerHTML=data.files.map(f=>`
+      <div class="doc-row">
+        <div>
+          <div class="doc-name">${f.name}</div>
+          <div class="doc-url">${window.location.origin}${f.url}</div>
+        </div>
+        <a class="doc-open" href="${f.url}" target="_blank">Open ↗</a>
+      </div>`).join('');
+  }catch(e){status.textContent='Failed to load: '+e.message;}
+}
+load();
+</script>
+</body>
+</html>

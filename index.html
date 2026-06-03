@@ -252,6 +252,7 @@ textarea#paste-area::placeholder{color:var(--text-3)}
     </svg>
     MD Reader
   </a>
+  <a href="/library" class="tb-btn" style="text-decoration:none;font-size:12px">☰ Library</a>
   <div id="toolbar">
     <span id="doc-name"></span>
     <button class="tb-btn" id="btn-toc" onclick="toggleToc()" style="display:none">☰ TOC</button>
@@ -464,8 +465,8 @@ function exportHtml(){
   const blob=new Blob([html],{type:'text/html'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');a.href=url;a.download=(currentFilename||'document').replace(/\.\w+$/,'')+'.html';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url),100);
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
 }
 
 // ── Save & share ──
