@@ -29,7 +29,8 @@ export default async function handler(req) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
-    .slice(0, 80);
+    .split('-').slice(0, 3).join('-')
+    .slice(0, 30);
 
   const path = `docs/${slug}.html`;
   const apiBase = `https://api.github.com/repos/${repo}/contents/${path}`;
