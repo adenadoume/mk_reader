@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MD Reader</title>
+<title>MK Reader</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <meta name="description" content="Drop a .md file. Read beautifully. Share with one link.">
-<meta property="og:title" content="MD Reader">
+<meta property="og:title" content="MK Reader">
 <meta property="og:description" content="Drop a .md file. Read beautifully. Share with one link.">
 <meta property="og:image" content="https://mk.agop.pro/og.svg">
 <meta property="og:url" content="https://mk.agop.pro">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MD Reader">
+<meta name="twitter:title" content="MK Reader">
 <meta name="twitter:description" content="Drop a .md file. Read beautifully. Share with one link.">
 <meta name="twitter:image" content="https://mk.agop.pro/og.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -262,7 +262,7 @@ textarea#paste-area::placeholder{color:var(--text-3)}
       <rect width="22" height="22" rx="6.5" fill="url(#lgo)"/>
       <path d="M4.5 16L4.5 6.5L11 12L17.5 6.5L17.5 16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    MD Reader
+    MK Reader
   </a>
   <a href="/library" class="tb-btn" style="text-decoration:none;font-size:12px">☰ Library</a>
   <div id="toolbar">
@@ -448,10 +448,10 @@ function toggleToc(){document.getElementById('toc-sidebar').classList.toggle('op
 // ── Export ──
 function buildFullHtml(inner){
   const docTitle=(document.getElementById('doc-name').textContent||'Document');
-  return`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${docTitle} — MD Reader</title>
+  return`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${docTitle} — MK Reader</title>
 <link rel="icon" type="image/svg+xml" href="https://mk.agop.pro/favicon.svg">
 <meta property="og:title" content="${docTitle}">
-<meta property="og:description" content="Shared via MD Reader · mk.agop.pro">
+<meta property="og:description" content="Shared via MK Reader · mk.agop.pro">
 <meta property="og:image" content="https://mk.agop.pro/og.svg">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
@@ -483,7 +483,7 @@ td{padding:8px 14px;border-bottom:1px solid #374151;color:#e5e7eb}
 tr:nth-child(even) td{background:rgba(255,255,255,.02)}
 img{max-width:100%;border-radius:8px}strong{font-weight:600}em{font-style:italic}del{text-decoration:line-through;color:#9ca3af}
 </style></head><body>
-<div id="doc-bar"><a href="/">← MD Reader</a><button onclick="dlSelf()">↓ Download HTML</button></div>
+<div id="doc-bar"><a href="/">← MK Reader</a><button onclick="dlSelf()">↓ Download HTML</button></div>
 ${inner}
 <script>function dlSelf(){const h='<!DOCTYPE html>'+document.documentElement.outerHTML;const b=new Blob([h],{type:'text/html'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=document.title.replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.html';document.body.appendChild(a);a.click();setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(u);},1000);}<\/script>
 </body></html>`;

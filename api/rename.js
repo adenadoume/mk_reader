@@ -57,7 +57,7 @@ export default async function handler(req) {
     body: JSON.stringify({ message: `docs: remove ${oldSlug} after rename`, sha, branch })
   });
 
-  return new Response(JSON.stringify({ slug: newSlug, url: `/docs/${newSlug}` }), {
+  return new Response(JSON.stringify({ slug: newSlug, url: `/${newSlug}` }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });

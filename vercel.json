@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/docs/:slug", "destination": "/docs/:slug.html" },
-    { "source": "/library",    "destination": "/library.html" }
+    { "source": "/library",    "destination": "/library.html" },
+    { "source": "/:slug([a-z0-9][a-z0-9-]*)", "destination": "/docs/:slug.html" }
   ],
   "headers": [
     {

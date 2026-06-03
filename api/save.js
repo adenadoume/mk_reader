@@ -69,7 +69,7 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ error: 'GitHub error', detail: err }), { status: 502 });
   }
 
-  return new Response(JSON.stringify({ slug, url: `/docs/${slug}` }), {
+  return new Response(JSON.stringify({ slug, url: `/${slug}` }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' }
   });

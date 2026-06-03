@@ -1,4 +1,4 @@
-# MD Reader
+# MK Reader
 
 Dark-themed Markdown reader. Renders .md files with syntax highlighting, saves to a permanent shareable URL.
 

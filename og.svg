@@ -20,7 +20,7 @@
   <rect x="540" y="175" width="120" height="120" rx="32" fill="url(#icon)"/>
   <path d="M565 272 L565 192 L600 232 L635 192 L635 272" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <!-- Title -->
-  <text x="600" y="366" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" font-size="68" font-weight="700" fill="#FAFAFA" text-anchor="middle" letter-spacing="-1.5">MD Reader</text>
+  <text x="600" y="366" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" font-size="68" font-weight="700" fill="#FAFAFA" text-anchor="middle" letter-spacing="-1.5">MK Reader</text>
   <!-- Subtitle -->
   <text x="600" y="422" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" font-size="26" fill="#6b7280" text-anchor="middle">Drop a .md file · Read beautifully · Share with one link</text>
   <!-- Domain pill -->

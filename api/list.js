@@ -28,7 +28,7 @@ export default async function handler(req) {
     .map(f => ({
       slug: f.name.replace(/\.html$/, ''),
       name: f.name.replace(/\.html$/, '').replace(/-/g, ' '),
-      url: `/docs/${f.name.replace(/\.html$/, '')}`,
+      url: `/${f.name.replace(/\.html$/, '')}`,
       sha: f.sha
     }));
 
