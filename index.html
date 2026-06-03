@@ -440,7 +440,11 @@ function buildFullHtml(inner){
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,sans-serif;background:#09090B;color:#FAFAFA;max-width:780px;margin:3rem auto;padding:0 2rem;line-height:1.78;font-size:15px;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',system-ui,sans-serif;background:#09090B;color:#FAFAFA;max-width:780px;margin:0 auto;padding:4rem 2rem 3rem;line-height:1.78;font-size:17px;-webkit-font-smoothing:antialiased}
+#doc-bar{position:fixed;top:0;left:0;right:0;background:#111827;border-bottom:1px solid #374151;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;z-index:1000;font-family:'Inter',system-ui,sans-serif}
+#doc-bar a{color:#60a5fa;font-size:13px;font-weight:600;text-decoration:none}
+#doc-bar button{font-size:12px;font-weight:600;padding:5px 14px;border:1px solid #2A5C8A;border-radius:5px;background:#1B2A3B;color:#A8C8E8;cursor:pointer;transition:background .15s}
+#doc-bar button:hover{background:#2A5C8A;color:#fff}
 h1{font-size:26px;font-weight:700;color:#60a5fa;margin:2rem 0 .8rem;border-bottom:2px solid #2A5C8A;padding-bottom:.4rem}
 h2{font-size:20px;font-weight:600;color:#60a5fa;margin:1.8rem 0 .6rem;border-left:3px solid #2A5C8A;padding-left:10px}
 h3{font-size:17px;font-weight:600;color:#5B9BD5;margin:1.4rem 0 .5rem}
@@ -457,7 +461,11 @@ th{background:#0f172a;color:#fff;text-align:left;padding:9px 14px;font-weight:60
 td{padding:8px 14px;border-bottom:1px solid #374151;color:#e5e7eb}
 tr:nth-child(even) td{background:rgba(255,255,255,.02)}
 img{max-width:100%;border-radius:8px}strong{font-weight:600}em{font-style:italic}del{text-decoration:line-through;color:#9ca3af}
-</style></head><body>${inner}</body></html>`;
+</style></head><body>
+<div id="doc-bar"><a href="/">← MD Reader</a><button onclick="dlSelf()">↓ Download HTML</button></div>
+${inner}
+<script>function dlSelf(){const h='<!DOCTYPE html>'+document.documentElement.outerHTML;const b=new Blob([h],{type:'text/html'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=document.title.replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.html';document.body.appendChild(a);a.click();setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(u);},1000);}<\/script>
+</body></html>`;
 }
 
 function exportHtml(){

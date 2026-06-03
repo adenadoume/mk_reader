@@ -8,76 +8,202 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#09090B;--panel:#111827;--panel-alt:#18181B;--elevated:#1f2937;
-  --border:rgba(255,255,255,0.05);--border-mid:#374151;
-  --text:#FAFAFA;--text-2:#9ca3af;--text-3:#7FA8C9;
-  --blue:#3b82f6;--blue-light:#60a5fa;
-  --ocean-bg:#1B2A3B;--ocean-border:#2A5C8A;--ocean-text:#A8C8E8;--ocean-strong:#5B9BD5;
+  --bg:#09090B;--panel:#111827;--elevated:#1f2937;
+  --border-mid:#374151;--text:#FAFAFA;--text-2:#9ca3af;--text-3:#7FA8C9;
+  --blue-light:#60a5fa;--ocean-bg:#1B2A3B;--ocean-border:#2A5C8A;
+  --ocean-text:#A8C8E8;--ocean-strong:#5B9BD5;--red:#ef4444;--red-bg:#450a0a;
 }
 html{font-size:16px}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
-header{background:linear-gradient(135deg,#09090B 0%,#111115 100%);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:54px;position:sticky;top:0;z-index:100}
+
+/* lock */
+#lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999}
+.lock-box{background:var(--panel);border:1px solid var(--border-mid);border-radius:12px;padding:2.5rem 2rem;width:320px;display:flex;flex-direction:column;gap:14px;text-align:center}
+.lock-icon{font-size:32px}
+.lock-box h2{font-size:16px;font-weight:700;color:var(--text)}
+.lock-box input{padding:9px 14px;font-size:14px;font-family:'JetBrains Mono',monospace;border-radius:6px;border:1px solid var(--ocean-border);background:var(--ocean-bg);color:var(--text);outline:none;text-align:center;letter-spacing:4px}
+.lock-box input:focus{border-color:var(--ocean-strong)}
+.lock-box button{padding:9px;font-size:14px;font-weight:700;border-radius:6px;border:none;background:var(--ocean-border);color:#fff;cursor:pointer;transition:background .15s}
+.lock-box button:hover{background:var(--ocean-strong)}
+#pw-err{font-size:13px;color:var(--red);min-height:18px}
+
+/* header */
+header{background:linear-gradient(135deg,#09090B 0%,#111115 100%);border-bottom:1px solid rgba(255,255,255,0.05);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:54px;position:sticky;top:0;z-index:100}
 .logo{font-size:16px;font-weight:700;color:var(--blue-light);letter-spacing:.5px;display:flex;align-items:center;gap:8px;text-decoration:none}
 .logo svg{width:20px;height:20px}
 .back-btn{font-size:12px;font-weight:600;color:var(--text-3);text-decoration:none;padding:5px 12px;border:1px solid var(--ocean-border);border-radius:6px;background:var(--ocean-bg);transition:background .15s,color .15s}
 .back-btn:hover{background:var(--ocean-border);color:#fff}
-main{max-width:720px;margin:0 auto;padding:2.5rem 2rem}
-h1{font-size:20px;font-weight:700;color:var(--text);margin-bottom:6px}
-.subtitle{font-size:13px;color:var(--text-2);margin-bottom:2rem;font-family:'JetBrains Mono',monospace}
-#list{display:flex;flex-direction:column;gap:10px}
-.doc-row{
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--panel);border:1px solid var(--border-mid);border-radius:8px;
-  padding:12px 16px;transition:border-color .15s,background .15s;
-}
-.doc-row:hover{border-color:var(--ocean-border);background:var(--ocean-bg)}
-.doc-name{font-size:14px;font-weight:500;color:var(--text);text-transform:capitalize}
-.doc-url{font-size:12px;color:var(--text-3);font-family:'JetBrains Mono',monospace;margin-top:2px}
-.doc-open{font-size:12px;font-weight:600;color:var(--blue-light);text-decoration:none;padding:5px 12px;border:1px solid var(--ocean-border);border-radius:5px;white-space:nowrap;transition:background .15s}
-.doc-open:hover{background:var(--ocean-border);color:#fff}
+
+/* content */
+main{max-width:760px;margin:0 auto;padding:2.5rem 2rem}
+.page-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px}
+.subtitle{font-size:12px;color:var(--text-2);font-family:'JetBrains Mono',monospace;margin-bottom:2rem}
+#list{display:flex;flex-direction:column;gap:8px}
+
+/* doc row */
+.doc-row{background:var(--panel);border:1px solid var(--border-mid);border-radius:8px;padding:12px 14px;transition:border-color .15s}
+.doc-row:hover{border-color:var(--ocean-border)}
+.row-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.doc-info{flex:1;min-width:0}
+.doc-name{font-size:14px;font-weight:500;color:var(--text);text-transform:capitalize;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-slug{font-size:11px;color:var(--text-3);font-family:'JetBrains Mono',monospace;margin-top:2px}
+.row-actions{display:flex;gap:6px;flex-shrink:0}
+.btn{font-size:12px;font-weight:600;padding:5px 11px;border-radius:5px;cursor:pointer;transition:background .15s,color .15s;white-space:nowrap;border:1px solid}
+.btn-open{border-color:var(--ocean-border);background:var(--ocean-bg);color:var(--ocean-text);text-decoration:none;display:inline-flex;align-items:center}
+.btn-open:hover{background:var(--ocean-border);color:#fff}
+.btn-edit{border-color:var(--ocean-border);background:transparent;color:var(--text-3)}
+.btn-edit:hover{background:var(--ocean-bg);color:var(--text)}
+.btn-del{border-color:#7f1d1d;background:transparent;color:#f87171}
+.btn-del:hover{background:var(--red-bg);color:#fca5a5}
+
+/* edit row */
+.edit-row{display:none;margin-top:10px;gap:8px;align-items:center}
+.edit-row.open{display:flex}
+.edit-row input{flex:1;padding:7px 10px;font-size:13px;font-family:'JetBrains Mono',monospace;border-radius:5px;border:1px solid var(--ocean-border);background:var(--ocean-bg);color:var(--text);outline:none}
+.edit-row input:focus{border-color:var(--ocean-strong)}
+.btn-save{border-color:#15803d;background:#14532d;color:#4ade80}
+.btn-save:hover{background:#166534}
+.btn-cancel{border-color:var(--border-mid);background:transparent;color:var(--text-2)}
+.btn-cancel:hover{background:var(--elevated);color:var(--text)}
+.edit-msg{font-size:11px;margin-top:5px;font-family:'JetBrains Mono',monospace}
+.edit-msg.err{color:var(--red)}.edit-msg.ok{color:#4ade80}
+
 #status{font-size:13px;color:var(--text-2);padding:2rem 0;text-align:center;font-family:'JetBrains Mono',monospace}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0D1B2A}::-webkit-scrollbar-thumb{background:var(--ocean-border);border-radius:3px}
 </style>
 </head>
 <body>
-<header>
-  <a class="logo" href="/">
-    <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="2" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M6 8h10M6 11h7M6 14h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
-    MD Reader
-  </a>
-  <a href="/" class="back-btn">← Reader</a>
-</header>
-<main>
-  <h1>Library</h1>
-  <div class="subtitle" id="count">Loading…</div>
-  <div id="list"></div>
-  <div id="status"></div>
-</main>
+
+<div id="lock">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <h2>Library</h2>
+    <input type="password" id="pw" placeholder="Password" autocomplete="off">
+    <button onclick="unlock()">Enter</button>
+    <div id="pw-err"></div>
+  </div>
+</div>
+
+<div id="lib" style="display:none">
+  <header>
+    <a class="logo" href="/">
+      <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M6 8h10M6 11h7M6 14h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      MD Reader
+    </a>
+    <a href="/" class="back-btn">← Reader</a>
+  </header>
+  <main>
+    <div class="page-title">Library</div>
+    <div class="subtitle" id="count">Loading…</div>
+    <div id="list"></div>
+    <div id="status"></div>
+  </main>
+</div>
+
 <script>
-async function load(){
-  const status=document.getElementById('status');
-  const list=document.getElementById('list');
-  const count=document.getElementById('count');
-  try{
-    const res=await fetch('/api/list');
-    const data=await res.json();
-    if(!res.ok||data.error){status.textContent='Error: '+(data.error||'failed to load');return;}
-    if(!data.files||data.files.length===0){count.textContent='0 documents';status.textContent='No saved documents yet.';return;}
-    count.textContent=data.files.length+' document'+(data.files.length===1?'':'s');
-    list.innerHTML=data.files.map(f=>`
-      <div class="doc-row">
-        <div>
-          <div class="doc-name">${f.name}</div>
-          <div class="doc-url">${window.location.origin}${f.url}</div>
-        </div>
-        <a class="doc-open" href="${f.url}" target="_blank">Open ↗</a>
-      </div>`).join('');
-  }catch(e){status.textContent='Failed to load: '+e.message;}
+const PASS = '543';
+
+document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+
+function unlock() {
+  if (document.getElementById('pw').value === PASS) {
+    sessionStorage.setItem('lib_ok', '1');
+    show();
+  } else {
+    document.getElementById('pw-err').textContent = 'Wrong password';
+    document.getElementById('pw').value = '';
+    document.getElementById('pw').focus();
+  }
 }
-load();
+
+function show() {
+  document.getElementById('lock').style.display = 'none';
+  document.getElementById('lib').style.display = '';
+  loadDocs();
+}
+
+if (sessionStorage.getItem('lib_ok') === '1') show();
+
+async function loadDocs() {
+  const list = document.getElementById('list');
+  const count = document.getElementById('count');
+  const status = document.getElementById('status');
+  try {
+    const res = await fetch('/api/list');
+    const data = await res.json();
+    if (!res.ok || data.error) { status.textContent = 'Error: ' + (data.error || 'failed'); return; }
+    if (!data.files || data.files.length === 0) { count.textContent = '0 documents'; status.textContent = 'No saved documents yet.'; return; }
+    count.textContent = data.files.length + ' document' + (data.files.length === 1 ? '' : 's');
+    list.innerHTML = data.files.map(f => `
+      <div class="doc-row" id="row-${f.slug}">
+        <div class="row-top">
+          <div class="doc-info">
+            <div class="doc-name">${f.name}</div>
+            <div class="doc-slug">${window.location.origin}${f.url}</div>
+          </div>
+          <div class="row-actions">
+            <a class="btn btn-open" href="${f.url}" target="_blank">Open ↗</a>
+            <button class="btn btn-edit" onclick="startEdit('${f.slug}')">Edit URL</button>
+            <button class="btn btn-del" onclick="deleteDoc('${f.slug}')">Delete</button>
+          </div>
+        </div>
+        <div class="edit-row" id="edit-${f.slug}">
+          <input type="text" id="input-${f.slug}" value="${f.slug}" spellcheck="false">
+          <button class="btn btn-save" onclick="saveEdit('${f.slug}')">Save</button>
+          <button class="btn btn-cancel" onclick="cancelEdit('${f.slug}')">Cancel</button>
+        </div>
+        <div class="edit-msg" id="msg-${f.slug}"></div>
+      </div>`).join('');
+  } catch(e) { status.textContent = 'Failed: ' + e.message; }
+}
+
+function startEdit(slug) {
+  document.getElementById('edit-' + slug).classList.add('open');
+  document.getElementById('input-' + slug).focus();
+  document.getElementById('msg-' + slug).textContent = '';
+}
+
+function cancelEdit(slug) {
+  document.getElementById('edit-' + slug).classList.remove('open');
+  document.getElementById('input-' + slug).value = slug;
+  document.getElementById('msg-' + slug).textContent = '';
+}
+
+async function saveEdit(oldSlug) {
+  const newSlug = document.getElementById('input-' + oldSlug).value.trim();
+  const msg = document.getElementById('msg-' + oldSlug);
+  if (!newSlug || newSlug === oldSlug) { cancelEdit(oldSlug); return; }
+  msg.className = 'edit-msg'; msg.textContent = 'Renaming…';
+  try {
+    const res = await fetch('/api/rename', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ oldSlug, newSlug })
+    });
+    const data = await res.json();
+    if (!res.ok) { msg.className = 'edit-msg err'; msg.textContent = data.error || 'Failed'; return; }
+    msg.className = 'edit-msg ok'; msg.textContent = '✓ Renamed to ' + data.slug;
+    setTimeout(() => loadDocs(), 800);
+  } catch(e) { msg.className = 'edit-msg err'; msg.textContent = e.message; }
+}
+
+async function deleteDoc(slug) {
+  if (!confirm('Delete "' + slug + '"? This cannot be undone.')) return;
+  const row = document.getElementById('row-' + slug);
+  row.style.opacity = '0.4';
+  try {
+    const res = await fetch('/api/delete', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug })
+    });
+    if (!res.ok) { row.style.opacity = '1'; alert('Delete failed'); return; }
+    row.remove();
+    const remaining = document.querySelectorAll('.doc-row').length;
+    document.getElementById('count').textContent = remaining + ' document' + (remaining === 1 ? '' : 's');
+  } catch(e) { row.style.opacity = '1'; alert(e.message); }
+}
 </script>
 </body>
 </html>
